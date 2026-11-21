@@ -25,6 +25,28 @@ async function fetchProducts() {
 
         console.log("Store products:", storeProducts);
 
+        const productContainer = document.querySelector(".product-container");
+
+        const fragment = document.createDocumentFragment();
+
+        storeProducts.forEach(product => {
+            const card = document.createElement("div");
+            card.classList.add("product-card");
+
+            const title = document.createElement("h3");
+            title.textContent = product.title;
+
+            const description = document.createElement("p");
+            description.textContent = product.description;
+
+            card.appendChild(title);
+            card.appendChild(description);
+
+            fragment.appendChild(card);
+        });
+
+        productContainer.appendChild(fragment);
+
     } catch (error) {
         console.error("Error retrieving products:", error);
     }
