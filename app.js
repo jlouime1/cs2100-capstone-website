@@ -5,6 +5,12 @@ console.log("TECH & THINGS JavaScript connected!");
 const productContainer = document.querySelector(".product-container");
 
 function displayProducts(products) {
+    if (products.length === 0) {
+        const message = document.createElement("p");
+        message.textContent = "No products found matching your search.";
+        productContainer.appendChild(message);
+        return;
+    }
     const fragment = document.createDocumentFragment();
 
     products.forEach(product => {
