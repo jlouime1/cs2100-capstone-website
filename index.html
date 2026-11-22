@@ -53,7 +53,20 @@
 			<section id="products" class="products">
 				<h2>Featured Products</h2>
 
-				<input type="text" id="searchInput" placeholder="Search products...">
+				<form id="productForm">
+					<label for="searchInput">Product Name:</label>
+						<input type="text" id="searchInput">
+
+						<label for="minPrice">Minimum Price:</label>
+						<input type="number" id="minPrice">
+
+						<label for="maxPrice">Maximum Price:</label>
+						<input type="number" id="maxPrice">
+
+						<button type="submit">Search</button>
+
+						<p id="formError"></p>
+					</form>
 
 				<div class="product-container">
 				</div>
