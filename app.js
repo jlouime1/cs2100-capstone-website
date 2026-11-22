@@ -2,6 +2,30 @@
 
 console.log("TECH & THINGS JavaScript connected!");
 
+const productContainer = document.querySelector(".product-container");
+
+function displayProducts(products) {
+    const fragment = document.createDocumentFragment();
+
+    products.forEach(product => {
+        const card = document.createElement("div");
+        card.classList.add("product-card");
+
+        const title = document.createElement("h3");
+        title.textContent = product.title;
+
+        const description = document.createElement("p");
+        description.textContent = product.description;
+
+        card.appendChild(title);
+        card.appendChild(description);
+
+        fragment.appendChild(card);
+    });
+
+    productContainer.appendChild(fragment);
+}
+
 async function fetchProducts() {
     try {
         const response = await fetch("https://dummyjson.com/products");
@@ -25,27 +49,22 @@ async function fetchProducts() {
 
         console.log("Store products:", storeProducts);
 
-        const productContainer = document.querySelector(".product-container");
+        displayProducts(storeProducts);
 
-        const fragment = document.createDocumentFragment();
+        const searchInput = document.querySelector("#searchInput");
 
-        storeProducts.forEach(product => {
-            const card = document.createElement("div");
-            card.classList.add("product-card");
+        searchInput.addEventListener("input", () => {
+            const searchTerm = searchInput.value.toLowerCase();
 
-            const title = document.createElement("h3");
-            title.textContent = product.title;
+            const filteredProducts = storeProducts.filter(product => {
+                return product.title.toLowerCase().includes(searchTerm);
+            });
 
-            const description = document.createElement("p");
-            description.textContent = product.description;
+            productContainer.innerHTML = "";
 
-            card.appendChild(title);
-            card.appendChild(description);
-
-            fragment.appendChild(card);
+            displayProducts(filteredProducts);
         });
 
-        productContainer.appendChild(fragment);
 
     } catch (error) {
         console.error("Error retrieving products:", error);
